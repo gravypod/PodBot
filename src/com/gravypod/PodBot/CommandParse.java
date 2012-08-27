@@ -1,12 +1,12 @@
 package com.gravypod.PodBot;
 
 
-public class CommandParse {
+public class CommandParse extends CommandClass {
 	
-	public static String channel, sender, login, hostname, message;
+	public static String channel, sender, login, hostname, message, command;
 
 	public static String[] args;
-	
+
 	private String[] prefixes = {".", "!", "|"};
 	
 	public void commandFind(String channel, String sender, String login, String hostname, String message) {
@@ -21,7 +21,7 @@ public class CommandParse {
 				
 				isCommand = true;
 			
-				command = message.replace(prefix, "").trim();
+				command = message.replace(prefix, "");
 			
 				continue;
 				
@@ -32,27 +32,29 @@ public class CommandParse {
 		if (!isCommand)
 			return;
 		
-		String argument = command.split(" ")[0].toLowerCase();
+		String cmd = command.split(" ")[0].toLowerCase().trim();
+		String path = "com.gravypod.PodBot.commands." + cmd + ".class";
 		
-		String classPath = "com.gravypod.PodBot.commands.";
+		CommandParse.channel = channel; 
 		
-		if (PodBot.getCommands().contains(classPath + argument + ".class")) {
+		CommandParse.sender = sender; 
+		
+		CommandParse.login = login; 
+		
+		CommandParse.hostname = hostname; 
+		
+		CommandParse.message = message;
+		
+		CommandParse.command = cmd;
+		
+		CommandParse.args = command.replace(cmd, "").split(" ");
+		
+		if (PodBot.getCommands().contains(path)) {
 			
 			try {
 				
-				CommandParse.channel = channel; 
-				
-				CommandParse.sender = sender; 
-				
-				CommandParse.login = login; 
-				
-				CommandParse.hostname = hostname; 
-				
-				CommandParse.message = message;
-				
-				CommandParse.args = command.replace(argument, "").split(" ", 2);
-				
-				Class.forName(classPath + argument).newInstance();
+				Class.forName("com.gravypod.PodBot.commands." + cmd).newInstance();
+				return;
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -60,9 +62,20 @@ public class CommandParse {
 			
 		}
 		
-		if (!FileFind.FindFile(message.split(" ")[0], sender, channel)) {
-			BotStartup.botInstance.sendNotice(sender, "That is not a valid command");
-		}
+		
+		if (FileFind.doesFileExist(cmd)) {
+			
+			for (String toSend : FileFind.ArrayFileContent(command, sender, channel)) {
+			
+				System.out.println(toSend);
+				sendResponce(args, command, channel, toSend);
+			}
+			
+			return;
+			
+		} 
+
+		BotStartup.botInstance.sendNotice(sender, "That is not a valid command");
 		
 	}
 	

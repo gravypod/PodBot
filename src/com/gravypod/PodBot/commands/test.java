@@ -1,12 +1,16 @@
 package com.gravypod.PodBot.commands;
 
-import com.gravypod.PodBot.BotStartup;
+import com.gravypod.PodBot.CommandClass;
 import com.gravypod.PodBot.CommandParse;
 
-public class test {
+public class test extends CommandClass {
 
-	String channel, sender, login, hostname, message;
-	BotStartup botInstance;
+	String channel;
+	String sender;
+	String login;
+	String hostname;
+	String message;
+	String command;
 	String[] args;
 	
 	public test() {
@@ -16,7 +20,7 @@ public class test {
 		login = CommandParse.login;
 		hostname = CommandParse.hostname;
 		message = CommandParse.message;
-		botInstance = BotStartup.botInstance;
+		command = CommandParse.command;
 		args = CommandParse.args;
 		
 		Command(channel, sender, login, hostname, message);
@@ -25,8 +29,10 @@ public class test {
 	
 	private void Command(String channel, String sender, String login, String hostname, String message) {
 		
-		botInstance.sendMessage(channel, sender + ": Just ping me mo fo!");
+		sendResponce(args, command, channel, "Just ping me mo fo!");
 		
 	}
 	
+	
+
 }

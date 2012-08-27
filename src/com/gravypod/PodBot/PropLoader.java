@@ -19,9 +19,10 @@ public class PropLoader {
 	private static String LogExtention;
 	private static String Admins;
 	private static String port;
+	private static boolean antiFlood;
 	
 	public static void PropCheck() {
-		File config = new File("config.ini");
+		File config = new File(PodBot.rootLocation() + "config.ini");
 		if (!config.exists()) {
 			System.out.println("Missing config.ini Making one now");
 			FileWriter outFile;
@@ -37,6 +38,7 @@ public class PropLoader {
 				out.println("Owner=");
 				out.println("Password=");
 				out.println("Admins=");
+				out.println("Antiflood=true");
 
 				out.close();
 			} catch (IOException e1) {
@@ -58,6 +60,7 @@ public class PropLoader {
 			setPassword(prop.getProperty("Password"));
 			setLogExtention(prop.getProperty("LogExtentions"));
 			setAdmins(prop.getProperty("Admins"));
+			setAntiFlood(Boolean.parseBoolean(prop.getProperty("Antiflood")));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -137,5 +140,13 @@ public class PropLoader {
 
 	public static void setPort(String port) {
 		PropLoader.port = port;
+	}
+
+	public static boolean getAntiFlood() {
+		return antiFlood;
+	}
+
+	public static void setAntiFlood(boolean antiFlood) {
+		PropLoader.antiFlood = antiFlood;
 	}
 }

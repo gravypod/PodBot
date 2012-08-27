@@ -1,5 +1,6 @@
 package com.gravypod.PodBot;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -13,15 +14,40 @@ public class PodBot {
 	
 	public static void main(String[] args) {
 		
-		PropLoader.PropCheck();
-		PropLoader.PropLoad();
+		new Thread() {
+			
+			@Override
+			public void run() {
+				
+				
+				PropLoader.PropCheck();
+				PropLoader.PropLoad();
+				
+				File commandFile = new File(PodBot.rootLocation() + "commands");
+				
+				if (!commandFile.exists())
+					commandFile.mkdir();
+					
+				
+				reloadCommands();
+		
+				for (String s : commands) {
+					System.out.println(s);
+				}
+		
+		
+				new BotStartup();
+			}
+			
+		}.start();
+		
+	}
+	
+	public static void reloadCommands() {
+		
+		commands = null;
 		
 		commands = ListClasses.getClasseNamesInPackage(jarLocation(), "com.gravypod.PodBot.commands.");
-		
-		for (String s : commands)
-			System.out.println(s);
-		
-		new BotStartup();
 		
 	}
 	
@@ -34,5 +60,12 @@ public class PodBot {
 	public static String jarLocation() {
 		
 		return PodBot.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		
+	}
+	
+	public static String rootLocation() {
+		
+		return PodBot.class.getProtectionDomain().getCodeSource().getLocation().getPath().replace("PodBot.jar", "");
+		
 	}
 }

@@ -2,19 +2,23 @@ package com.gravypod.PodBot;
 
 import java.io.File;
 
-public class FileFind {
+public class FileFind extends CommandClass {
 	
+	public static boolean doesFileExist(String fileName) {
+		
+		return new File("commands" + PodBot.pathSep + fileName + ".txt").exists();
+		
+	}
 	
-	public static boolean FindFile(String fileName, String sender, String channel) {
+	public static String FindContent(String fileName, String sender, String channel) {
 		
-		File file = new File(PodBot.jarLocation() + PodBot.pathSep + "commands" + PodBot.pathSep + fileName);
+		return FileReader.convertFileToString(new File("commands" + PodBot.pathSep + fileName + ".txt"));
 		
-		if (!file.exists())
-			return false;
+	}
+	
+	public static String[] ArrayFileContent(String fileName, String sender, String channel) {
 		
-		BotStartup.botInstance.sendMessage(channel, sender + ": " + FileReader.convertFileToString(file));
-		
-		return true;
+		return FindContent(fileName, sender, channel).split(System.getProperty("line.separator"));
 		
 	}
 	
