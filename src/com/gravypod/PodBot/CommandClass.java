@@ -1,5 +1,7 @@
 package com.gravypod.PodBot;
 
+import java.util.regex.Matcher;
+
 import org.jibble.pircbot.User;
 
 /**
@@ -75,7 +77,9 @@ public abstract class CommandClass {
 		
 		String pointer = getPointer(args, commandName);
 		
-		pointer = pointer.replaceAll("@", "");
+		if (!(pointer == null))
+		if (!pointer.isEmpty() && pointer.contains("@"))
+			pointer = pointer.replaceAll("@", "");
 		
 		if (notice) {
 			System.out.println("Responce" + channel + " " + pointer + " " + message);
@@ -86,6 +90,13 @@ public abstract class CommandClass {
 			BotStartup.botInstance.sendMessage(channel, pointer + ": " + message);
 			
 		}
+		
+	}
+	
+	public void sendDirectResponce(String channel, String message) {
+		
+		
+		BotStartup.botInstance.sendMessage(channel, message);
 		
 	}
 	
@@ -106,8 +117,20 @@ public abstract class CommandClass {
 			sendResponce(args, commandName, channel, message);
 		}
 			
-			
 	}
+	
+    public boolean isURL(String s) {
+    	
+        try {
+        	
+            Matcher matcher = PodBot.urlPattern.matcher(s);
+            return matcher.matches();
+            
+        } catch (RuntimeException e) {
+        	return false;
+        }
+        
+    }           
 	
 	/**
 	 * 

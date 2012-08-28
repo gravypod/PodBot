@@ -3,6 +3,7 @@ package com.gravypod.PodBot;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * 
@@ -13,6 +14,7 @@ import java.util.List;
  */
 public class PodBot {
 	
+	/** List of all commands PodBot knows */
 	private static List<String> commands = null;
 	
 	/** The date */
@@ -24,6 +26,9 @@ public class PodBot {
 	/** The line separator for the OS java is running on */
 	public final static String lineSep = System.getProperty("line.separator");
 	
+	/** Pattern to match all urls */
+	public static Pattern urlPattern;
+	
 	public static void main(String[] args) {
 		
 		new Thread() {
@@ -31,6 +36,7 @@ public class PodBot {
 			@Override
 			public void run() {
 				
+				urlPattern = Pattern.compile("^((https?|ftp|file)://)?[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
 				
 				PropLoader.PropCheck();
 				PropLoader.PropLoad();

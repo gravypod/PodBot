@@ -36,19 +36,28 @@ public class CommandParse extends CommandClass {
 			if (message.startsWith(prefix)) {
 				
 				isCommand = true;
-			
+				
 				command = message.replace(prefix, "");
-			
+				
 				continue;
 				
 			}
 			
 		}
 		
+		
+		for (String s : message.split(" ")) {
+			if (isURL(s)) {
+				sendDirectResponce(channel, "That link is " + LinkReader.webRead(s));
+			}
+		}
+		
 		if (!isCommand)
 			return;
 		
-		String cmd = command.split(" ")[0].toLowerCase().trim();
+		
+		String cmd = message.split(" ")[0].toLowerCase().trim();
+		
 		String path = "com.gravypod.PodBot.commands." + cmd + ".class";
 		
 		CommandParse.channel = channel; 
@@ -64,6 +73,7 @@ public class CommandParse extends CommandClass {
 		CommandParse.command = cmd;
 		
 		CommandParse.args = command.replace(cmd, "").split(" ");
+		
 		
 		if (PodBot.getCommands().contains(path)) {
 			
