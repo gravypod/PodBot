@@ -5,9 +5,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
+/**
+ * 
+ * Log file maker
+ * 
+ * @author gravypod
+ *
+ */
 public class Logger {
 	
+	/**
+	 * 
+	 * Log a message into a log file.
+	 * 
+	 * @param sender
+	 * @param channel
+	 * @param message
+	 * 
+	 */
 	public static void Log(String sender, String channel, String message) {
 		
 		try {

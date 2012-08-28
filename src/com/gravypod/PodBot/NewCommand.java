@@ -5,8 +5,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * 
+ * Utilities for making new commands.
+ * 
+ * @author gravypod
+ *
+ */
 public class NewCommand {
-
+	
+	/** Instance of the Pirc bot */
 	private static BotStartup bot = BotStartup.botInstance;
 
 	/**
@@ -20,7 +28,7 @@ public class NewCommand {
 		try {
 			String file = args[1].trim().toLowerCase();
 			String text = args[2].trim();
-			File Command = new File(PodBot.rootLocation() + "commands" + PodBot.pathSep + file + ".txt");
+			File Command = new File("commands" + PodBot.pathSep + file + ".txt");
 			FileWriter outFile = new FileWriter(Command, true);
 			PrintWriter out = new PrintWriter(outFile);
 			out.println(text);
@@ -43,8 +51,8 @@ public class NewCommand {
 		try {
 			String file = args[1];
 			String text = args[2];
-			File f1 = new File(PodBot.rootLocation() + "commands" + PodBot.pathSep + file + ".txt");
-			File f2 = new File(PodBot.rootLocation() + "commands" + PodBot.pathSep + text + ".txt");
+			File f1 = new File("commands" + PodBot.pathSep + file + ".txt");
+			File f2 = new File("commands" + PodBot.pathSep + text + ".txt");
 			FileWriter outFile = new FileWriter(f2, true);
 			PrintWriter out = new PrintWriter(outFile);
 			out.println(FileReader.convertFileToString(f1));

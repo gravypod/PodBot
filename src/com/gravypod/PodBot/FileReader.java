@@ -11,19 +11,23 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Scanner;
 
-/*
+/**
+ * 
+ * File reading utilitys
  * 
  * @author ElgarL, Maker of GM and Towny
  * 
  */
-
 public class FileReader {
+	
 	/**
+	 * 
 	 * Pass a file and it will return it's contents as a string.
 	 * 
 	 * @param file
 	 *            File to read.
 	 * @return Contents of file. String will be empty in case of any errors.
+	 * 
 	 */
 	public static String convertFileToString(File file) {
 
@@ -56,17 +60,25 @@ public class FileReader {
 		}
 	}
 	
+	/**
+	 * 
+	 * Converts a file to a string array.
+	 * 
+	 * @param file
+	 * @return
+	 * 
+	 */
 	public static String[] fileToStringArray(File file) {
 		
 		return convertFileToString(file).split(System.getProperty("line.separator"));
 		
 	}
 
+	@Deprecated
 	public static String fileReaderTest(File file) {
 
 		try {
-			Scanner scan;
-			scan = new Scanner(file);
+			Scanner scan = new Scanner(file);
 			scan.useDelimiter("\\Z");
 			String content = scan.next();
 			return content;
@@ -76,13 +88,14 @@ public class FileReader {
 		return null;
 
 	}
-
+	
+	@Deprecated
 	public static String motd() {
 		File motd = new File("motd.txt");
 		if (motd.canRead() || motd.exists() || !(motd.getTotalSpace() < 0)) {
 			return fileReaderTest(motd);
 		} else {
-			return "";
+			return "No news for today";
 		}
 
 	}

@@ -7,6 +7,13 @@ import java.util.List;
 import org.jibble.pircbot.PircBot;
 import org.jibble.pircbot.User;
 
+/**
+ * 
+ * Bot startup class.
+ * 
+ * @author gravypod
+ *
+ */
 public class BotStartup extends PircBot {
 	
 	public static Hashtable<String, User[]> channelUserList;
@@ -66,15 +73,7 @@ public class BotStartup extends PircBot {
 	@Override
 	protected void onConnect() {
 		
-	}
-	
-	@Override
-	protected void onDisconnect() {
-		
-	}
-	
-	@Override
-	protected void onInvite(String targetNick, String sourceNick, String sourceLogin, String sourceHostname, String channel) {
+		sendMessage("nickserv", "identify " + PropLoader.getNick() + " " + PropLoader.getPassword());
 		
 	}
 	
@@ -107,16 +106,6 @@ public class BotStartup extends PircBot {
 		commandParse.commandFind(channel, sender, login, hostname, message);
 		
 		Logger.Log(sender, channel, message);
-		
-	}
-	
-	@Override
-	protected void onPrivateMessage(String sender, String login, String hostname, String message) {
-		
-	}
-	
-	@Override
-	protected void onUserList(String channel, User[] users) {
 		
 	}
 	

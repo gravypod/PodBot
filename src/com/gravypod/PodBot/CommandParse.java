@@ -1,6 +1,13 @@
 package com.gravypod.PodBot;
 
-
+/**
+ * 
+ * CommandParse class. Finds commands and starts classes that use them.
+ * Used in most message handling.
+ * 
+ * @author gravypod
+ *
+ */
 public class CommandParse extends CommandClass {
 	
 	public static String channel, sender, login, hostname, message, command;
@@ -9,6 +16,15 @@ public class CommandParse extends CommandClass {
 
 	private String[] prefixes = {".", "!", "|"};
 	
+	/**
+	 * Find if a command exists in a message.
+	 * 
+	 * @param channel
+	 * @param sender
+	 * @param login
+	 * @param hostname
+	 * @param message
+	 */
 	public void commandFind(String channel, String sender, String login, String hostname, String message) {
 		
 		String command = null;
@@ -63,13 +79,9 @@ public class CommandParse extends CommandClass {
 		}
 		
 		
-		if (FileFind.doesFileExist(cmd)) {
+		if (FileFind.fileExist(cmd)) {
 			
-			for (String toSend : FileFind.ArrayFileContent(command, sender, channel)) {
-			
-				System.out.println(toSend);
-				sendResponce(args, command, channel, toSend);
-			}
+			sendArrayResponce(args, command, channel, FileFind.ArrayFileContent(cmd, sender, channel));
 			
 			return;
 			

@@ -8,6 +8,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
 
+/**
+ * 
+ * Prop file loader [config]
+ * 
+ * @author boom27777777
+ *
+ */
 public class PropLoader {
 	
 	private static String nick;
@@ -22,7 +29,7 @@ public class PropLoader {
 	private static boolean antiFlood;
 	
 	public static void PropCheck() {
-		File config = new File(PodBot.rootLocation() + "config.ini");
+		File config = new File("config.ini");
 		if (!config.exists()) {
 			System.out.println("Missing config.ini Making one now");
 			FileWriter outFile;

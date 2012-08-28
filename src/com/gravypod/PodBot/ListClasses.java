@@ -6,6 +6,13 @@ import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
 
+/**
+ * 
+ * List all classes within a package.
+ * 
+ * @author gravypod
+ *
+ */
 public class ListClasses {
 
 	/**
@@ -18,7 +25,7 @@ public class ListClasses {
 	 */
 	public static List<String> getClasseNamesInPackage(String jarName, String packageName) {
 		
-		ArrayList<String> arrayList = new ArrayList<String>();
+		ArrayList<String> classList = new ArrayList<String>();
 		
 		packageName = packageName.replaceAll("\\.", "/");
 		
@@ -36,7 +43,7 @@ public class ListClasses {
 				}
 				
 				if ((jarEntry.getName().startsWith(packageName)) && (jarEntry.getName().endsWith(".class")) && !(jarEntry.getName().contains("$"))) {
-					arrayList.add(jarEntry.getName().replaceAll("/", "\\."));
+					classList.add(jarEntry.getName().replaceAll("/", "\\."));
 				}
 				
 			}
@@ -45,7 +52,7 @@ public class ListClasses {
 			e.printStackTrace();
 		}
 		
-		return arrayList;
+		return classList;
 	}
 
 }
