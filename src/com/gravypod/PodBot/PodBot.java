@@ -27,7 +27,7 @@ public class PodBot {
 	public final static String lineSep = System.getProperty("line.separator");
 	
 	/** Pattern to match all urls */
-	public static Pattern urlPattern;
+	public static Pattern urlPattern = Pattern.compile("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
 	
 	public static void main(String[] args) {
 		
@@ -35,8 +35,6 @@ public class PodBot {
 			
 			@Override
 			public void run() {
-				
-				urlPattern = Pattern.compile("^((https?|ftp|file)://)?[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
 				
 				PropLoader.PropCheck();
 				PropLoader.PropLoad();

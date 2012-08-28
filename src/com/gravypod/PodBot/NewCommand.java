@@ -24,10 +24,11 @@ public class NewCommand {
 	 * @param sender
 	 * @param message
 	 */
-	public static void NewCommands(String channel, String sender, String[] args) {
+	public static void NewCommands(String channel, String sender, String fileName, String message) {
 		try {
-			String file = args[1].trim().toLowerCase();
-			String text = args[2].trim();
+			String file = fileName.trim().toLowerCase();
+			String text = message;
+			
 			File Command = new File("commands" + PodBot.pathSep + file + ".txt");
 			FileWriter outFile = new FileWriter(Command, true);
 			PrintWriter out = new PrintWriter(outFile);

@@ -56,7 +56,7 @@ public class CommandParse extends CommandClass {
 			return;
 		
 		
-		String cmd = message.split(" ")[0].toLowerCase().trim();
+		String cmd = command.split(" ")[0].toLowerCase().trim();
 		
 		String path = "com.gravypod.PodBot.commands." + cmd + ".class";
 		
@@ -98,6 +98,25 @@ public class CommandParse extends CommandClass {
 		} 
 
 		BotStartup.botInstance.sendNotice(sender, "That is not a valid command");
+		
+/*		if (PropLoader.getAntiFlood())
+			if (!FloodChecker.canBeServed(hostname)) {
+			
+				if (!isUserOp(channel, sender)) {
+				
+					BotStartup.botInstance.sendNotice(sender, "You can only send "
+							+ FloodChecker.maxMessagesPerTime()
+							+ " messages every "
+							+ FloodChecker.TimeInSec() + "seconds");
+					
+					BotStartup.botInstance.kick(channel, sender, "You can only send "
+							+ FloodChecker.maxMessagesPerTime()
+							+ " messages every "
+							+ FloodChecker.TimeInSec() + " seconds");
+					
+				}
+				
+			} */
 		
 	}
 	

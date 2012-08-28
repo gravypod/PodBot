@@ -54,6 +54,7 @@ public class BotStartup extends PircBot {
 		this.setVerbose(true);
 		
 		this.identify(PropLoader.getPassword());
+		sendMessage("nickserv", "identify " + PropLoader.getNick() + " " + PropLoader.getPassword());
 		
 		try {
 			Thread.sleep(10L);
@@ -73,7 +74,7 @@ public class BotStartup extends PircBot {
 	@Override
 	protected void onConnect() {
 		
-		sendMessage("nickserv", "identify " + PropLoader.getNick() + " " + PropLoader.getPassword());
+		
 		
 	}
 	

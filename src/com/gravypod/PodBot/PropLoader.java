@@ -27,6 +27,8 @@ public class PropLoader {
 	private static String Admins;
 	private static String port;
 	private static boolean antiFlood;
+	private static String timeToKick;
+	private static String setMessagesToKick;
 	
 	public static void PropCheck() {
 		File config = new File("config.ini");
@@ -38,14 +40,16 @@ public class PropLoader {
 				PrintWriter out = new PrintWriter(outFile);
 				out.println("port=6667");
 				out.println("Server=irc.esper.net");
-				out.println("NickName=PodBot2");
-				out.println("Channels=#PersonalWorlds");
+				out.println("NickName=PodBot");
+				out.println("Channels=#PodBot");
 				out.println("LogFile=chatlog");
 				out.println("LogExtentions=log");
 				out.println("Owner=");
 				out.println("Password=");
 				out.println("Admins=");
 				out.println("Antiflood=true");
+				out.println("timeToKick=11");
+				out.println("messagesToKick=9");
 
 				out.close();
 			} catch (IOException e1) {
@@ -68,6 +72,9 @@ public class PropLoader {
 			setLogExtention(prop.getProperty("LogExtentions"));
 			setAdmins(prop.getProperty("Admins"));
 			setAntiFlood(Boolean.parseBoolean(prop.getProperty("Antiflood")));
+			setTimeToKick(prop.getProperty("timeToKick"));
+			setMessagesToKick(prop.getProperty("messagesToKick"));
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -156,4 +163,21 @@ public class PropLoader {
 	public static void setAntiFlood(boolean antiFlood) {
 		PropLoader.antiFlood = antiFlood;
 	}
+	
+	public static String getMessagesToKick() {
+		return setMessagesToKick;
+	}
+
+	private static void setMessagesToKick(String string) {
+		setMessagesToKick = string;
+	}
+
+	public static String getTimeToKick() {
+		return timeToKick;
+	}
+
+	private static void setTimeToKick(String string) {
+		timeToKick = string;
+	}
+
 }

@@ -82,13 +82,12 @@ public abstract class CommandClass {
 			pointer = pointer.replaceAll("@", "");
 		
 		if (notice) {
-			System.out.println("Responce" + channel + " " + pointer + " " + message);
+			
 			BotStartup.botInstance.sendNotice(pointer, pointer + ": " + message);
+			BotStartup.botInstance.sendNotice(CommandParse.sender, pointer + ": " + message);
 			
 		} else {
-			System.out.println("Responce" + channel + " " + pointer + " " + message);
 			BotStartup.botInstance.sendMessage(channel, pointer + ": " + message);
-			
 		}
 		
 	}
@@ -113,7 +112,6 @@ public abstract class CommandClass {
 	public void sendArrayResponce(String[] args, String commandName, String channel, String[] messages) {
 		
 		for (String message : messages) {
-			System.out.println("ArratResponce" + channel + " " + message);
 			sendResponce(args, commandName, channel, message);
 		}
 			
