@@ -34,8 +34,13 @@
             <classpath refid="PodBot.classpath"/>
         </javac>
         <mkdir dir="jars/"/>
-        <jar jarfile="jars/PodBot.jar" includes="**" basedir="bin" />
-    </target>
+        <jar jarfile="jars/PodBot.jar" includes="**" basedir="bin">
+            <fileset dir="bin"/>
+            <zipfileset excludes="META-INF/*.SF" src="lib/jtidy-r938.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="lib/pircbot-1.5.0/pircbot.jar"/>
+        </jar>              
+        </jar>
+        </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
     <target name="collect" depends="init">
     <mkdir dir="jars"/>
