@@ -78,17 +78,23 @@ public abstract class CommandClass {
 		String pointer = getPointer(args, commandName);
 		
 		if (!(pointer == null))
-		if (!pointer.isEmpty() && pointer.contains("@"))
-			pointer = pointer.replaceAll("@", "");
+			if (!pointer.isEmpty() && pointer.contains("@"))
+				pointer = pointer.replaceAll("@", "");
 		
 		if (notice) {
 			
 			BotStartup.botInstance.sendNotice(pointer, pointer + ": " + message);
 			BotStartup.botInstance.sendNotice(CommandParse.sender, pointer + ": " + message);
 			
+			
 		} else {
+			
 			BotStartup.botInstance.sendMessage(channel, pointer + ": " + message);
+			
 		}
+		
+		notice = false;
+		ping = false;
 		
 	}
 	
