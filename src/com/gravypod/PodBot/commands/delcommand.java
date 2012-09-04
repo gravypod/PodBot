@@ -12,12 +12,12 @@ public class delcommand extends CommandClass {
 		
 		if (isUserOp(CommandParse.channel, CommandParse.sender)) {
 			
-			File file = new File("commands" + PodBot.pathSep + CommandParse.command + ".txt");
+			File file = new File("commands" + PodBot.pathSep + CommandParse.args[1] + ".txt");
 			
-			if (file.exists())
-				file.delete();
+			if (!file.delete())
+				file.renameTo(new File("commands" + PodBot.pathSep + CommandParse.args[1] + ".bak"));
 			
-			sendResponce(CommandParse.args, CommandParse.command, CommandParse.channel, "The file was command!");
+			sendResponce(CommandParse.args, CommandParse.command, CommandParse.channel, "The file was deleted!");
 			
 		}
 		
