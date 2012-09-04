@@ -29,6 +29,8 @@ public class PodBot {
 	/** Pattern to match all urls */
 	public static Pattern urlPattern = Pattern.compile("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
 	
+	public static Logger logger;
+	
 	public static void main(String[] args) {
 		
 		new Thread() {
@@ -38,6 +40,8 @@ public class PodBot {
 				
 				PropLoader.PropCheck();
 				PropLoader.PropLoad();
+				
+				logger = new Logger(PropLoader.getChannel());
 				
 				File commandFile = new File("commands");
 				

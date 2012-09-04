@@ -106,7 +106,7 @@ public class BotStartup extends PircBot {
 		
 		commandParse.commandFind(channel, sender, login, hostname, message);
 		
-		Logger.Log(sender, channel, message);
+		PodBot.logger.Log(sender, channel, message);
 		
 	}
 	
