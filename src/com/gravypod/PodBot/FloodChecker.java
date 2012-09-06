@@ -25,10 +25,12 @@ public class FloodChecker {
 	}
 
 	public static long maxMessagesPerTime() {
+
 		return Max_Messages_Per_Time;
 	}
 
 	public static long TimeInSec() {
+
 		return Time_In_Sec;
 	}
 
@@ -39,6 +41,7 @@ public class FloodChecker {
 	 * @return
 	 */
 	public static boolean canBeServed(String hostname) {
+
 		if (!isInLog(hostname))
 			return true;
 
@@ -55,6 +58,7 @@ public class FloodChecker {
 	 * @return
 	 */
 	private static boolean isInLog(String hostname) {
+
 		return records.containsKey(hostname);
 	}
 
@@ -64,6 +68,7 @@ public class FloodChecker {
 	 * @param times
 	 */
 	private static void removeOldRecords(ArrayList<Long> times) {
+
 		Iterator<Long> it = times.listIterator();
 		while (it.hasNext()) {
 			if (isOld(it.next())) {
@@ -79,6 +84,7 @@ public class FloodChecker {
 	 * @return
 	 */
 	private static boolean isOld(Long time) {
+
 		return (CurrentTime.inSeconds() - time > Time_In_Sec);
 	}
 
@@ -88,6 +94,7 @@ public class FloodChecker {
 	 * @param hostname
 	 */
 	public static void logServed(String hostname) {
+
 		ArrayList<Long> times = getTimesServed(hostname);
 		times.add(CurrentTime.inSeconds());
 		records.put(hostname, times);
@@ -100,6 +107,7 @@ public class FloodChecker {
 	 * @return
 	 */
 	private static ArrayList<Long> getTimesServed(String hostname) {
+
 		ArrayList<Long> times = records.get(hostname);
 		return (times == null) ? new ArrayList<Long>() : times;
 	}

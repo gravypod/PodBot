@@ -10,10 +10,10 @@ import java.io.PrintWriter;
  * Utilities for making new commands.
  * 
  * @author gravypod
- *
+ * 
  */
 public class NewCommand {
-	
+
 	/** Instance of the Pirc bot */
 	private static BotStartup bot = BotStartup.botInstance;
 
@@ -25,10 +25,11 @@ public class NewCommand {
 	 * @param message
 	 */
 	public static void NewCommands(String channel, String sender, String fileName, String message) {
+
 		try {
 			String file = fileName.trim().toLowerCase();
 			String text = message;
-			
+
 			File Command = new File("commands" + PodBot.pathSep + file + ".txt");
 			FileWriter outFile = new FileWriter(Command, true);
 			PrintWriter out = new PrintWriter(outFile);
@@ -49,6 +50,7 @@ public class NewCommand {
 	 * @param message
 	 */
 	public static void AltCommand(String channel, String sender, String[] args) {
+
 		try {
 			String file = args[1];
 			String text = args[2];

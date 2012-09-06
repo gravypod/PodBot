@@ -13,7 +13,7 @@ import org.w3c.tidy.Tidy;
  * Link reading class to find out the '<Title>' of a url
  * 
  * @author boom27777777
- *
+ * 
  */
 public class LinkReader {
 
@@ -21,9 +21,9 @@ public class LinkReader {
 	public static String ytOut;
 
 	public static String webRead(String Url) {
-		
+
 		try {
-		
+
 			URL linkURL = new URL(Url);
 			URLConnection urlConnection = linkURL.openConnection();
 			BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -35,27 +35,29 @@ public class LinkReader {
 			String titleText = doc.getElementsByTagName("title").item(0).getFirstChild().getNodeValue();
 			html = titleText;
 			ytOut = null;
-			
+
 			if (html != null) {
 
 				ytOut = "\"" + html + "\"";
-		
+
 			}
-			
+
 			in.close();
 
-		} catch (Exception e){
+		} catch (Exception e) {
 		}
-		
+
 		return ytOut;
-		
+
 	}
 
 	public static String getHtml() {
+
 		return html;
 	}
 
 	public static void setHtml(String string) {
+
 		html = string;
 	}
 }

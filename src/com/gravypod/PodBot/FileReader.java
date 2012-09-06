@@ -19,7 +19,7 @@ import java.util.Scanner;
  * 
  */
 public class FileReader {
-	
+
 	/**
 	 * 
 	 * Pass a file and it will return it's contents as a string.
@@ -38,8 +38,7 @@ public class FileReader {
 			char[] buffer = new char[1024];
 			try {
 				is = new FileInputStream(file);
-				Reader reader = new BufferedReader(new InputStreamReader(is,
-						"UTF-8"));
+				Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 				int n;
 				while ((n = reader.read(buffer)) != -1) {
 					writer.write(buffer, 0, n);
@@ -59,7 +58,7 @@ public class FileReader {
 			return "";
 		}
 	}
-	
+
 	/**
 	 * 
 	 * Converts a file to a string array.
@@ -69,9 +68,9 @@ public class FileReader {
 	 * 
 	 */
 	public static String[] fileToStringArray(File file) {
-		
+
 		return convertFileToString(file).split(System.getProperty("line.separator"));
-		
+
 	}
 
 	@Deprecated
@@ -88,9 +87,10 @@ public class FileReader {
 		return null;
 
 	}
-	
+
 	@Deprecated
 	public static String motd() {
+
 		File motd = new File("motd.txt");
 		if (motd.canRead() || motd.exists() || !(motd.getTotalSpace() < 0)) {
 			return fileReaderTest(motd);

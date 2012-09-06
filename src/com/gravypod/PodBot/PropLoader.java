@@ -13,10 +13,10 @@ import java.util.Properties;
  * Prop file loader [config]
  * 
  * @author boom27777777
- *
+ * 
  */
 public class PropLoader {
-	
+
 	private static String nick;
 	private static String channel;
 	private static String server;
@@ -29,8 +29,9 @@ public class PropLoader {
 	private static boolean antiFlood;
 	private static String timeToKick;
 	private static String setMessagesToKick;
-	
+
 	public static void PropCheck() {
+
 		File config = new File("config.ini");
 		if (!config.exists()) {
 			System.out.println("Missing config.ini Making one now");
@@ -59,6 +60,7 @@ public class PropLoader {
 	}
 
 	public static void PropLoad() {
+
 		Properties prop = new Properties();
 		try {
 			prop.load(new FileInputStream("config.ini"));
@@ -74,7 +76,7 @@ public class PropLoader {
 			setAntiFlood(Boolean.parseBoolean(prop.getProperty("Antiflood")));
 			setTimeToKick(prop.getProperty("timeToKick"));
 			setMessagesToKick(prop.getProperty("messagesToKick"));
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -84,99 +86,123 @@ public class PropLoader {
 	}
 
 	public static String getLogExtention() {
+
 		return LogExtention;
 	}
 
 	public static void setLogExtention(String string) {
+
 		LogExtention = string;
 	}
 
 	public static String getOwner() {
+
 		return owner;
 	}
 
 	public static void setOwners(String string) {
+
 		owner = string;
 	}
 
 	public static String getNick() {
+
 		return nick;
 	}
 
 	public static void setNick(String string) {
+
 		nick = string;
 	}
 
 	public static String getChannel() {
+
 		return channel;
 	}
 
 	public static void setChannel(String string) {
+
 		channel = string;
 	}
 
 	public static String getServer() {
+
 		return server;
 	}
 
 	public static void setServer(String string) {
+
 		server = string;
 	}
 
 	public static String getLogfile() {
+
 		return logfile;
 	}
 
 	public static void setLogfile(String string) {
+
 		logfile = string;
 	}
 
 	public static String getPassword() {
+
 		return password;
 	}
 
 	public static void setPassword(String string) {
+
 		password = string;
 	}
-	
+
 	public static String[] getAdmins() {
+
 		String[] AdminArray = Admins.split(",");
 		return AdminArray;
 	}
 
 	public static void setAdmins(String admins) {
+
 		Admins = admins;
 	}
 
 	public static String getPort() {
+
 		return port;
 	}
 
 	public static void setPort(String port) {
+
 		PropLoader.port = port;
 	}
 
 	public static boolean getAntiFlood() {
+
 		return antiFlood;
 	}
 
 	public static void setAntiFlood(boolean antiFlood) {
+
 		PropLoader.antiFlood = antiFlood;
 	}
-	
+
 	public static String getMessagesToKick() {
+
 		return setMessagesToKick;
 	}
 
 	private static void setMessagesToKick(String string) {
+
 		setMessagesToKick = string;
 	}
 
 	public static String getTimeToKick() {
+
 		return timeToKick;
 	}
 
 	private static void setTimeToKick(String string) {
+
 		timeToKick = string;
 	}
 
