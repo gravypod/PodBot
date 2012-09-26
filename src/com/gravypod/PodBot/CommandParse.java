@@ -1,5 +1,7 @@
 package com.gravypod.PodBot;
 
+import org.pircbotx.Channel;
+
 /**
  * 
  * CommandParse class. Finds commands and starts classes that use them. Used in
@@ -10,7 +12,8 @@ package com.gravypod.PodBot;
  */
 public class CommandParse extends CommandClass {
 
-	public static String channel, sender, login, hostname, message, command;
+	public static Channel channel;
+	public static String sender, hostname, message, command;
 
 	public static String[] args;
 
@@ -23,9 +26,9 @@ public class CommandParse extends CommandClass {
 	 * @param sender
 	 * @param login
 	 * @param hostname
-	 * @param message
+	 * @param message 
 	 */
-	public void commandFind(String channel, String sender, String login, String hostname, String message) {
+	public void commandFind(Channel channel, String sender, String hostname, String message) {
 
 		String command = null;
 
@@ -46,9 +49,11 @@ public class CommandParse extends CommandClass {
 		}
 
 		for (String s : message.split(" ")) {
+			
 			if (isURL(s)) {
-				sendDirectResponce(channel, "That link is " + LinkReader.webRead(s));
+				sendDirectResponce(channel, "That link is " + PodBot.linkReader.webRead(s));
 			}
+			
 		}
 
 		if (!isCommand)
@@ -61,8 +66,6 @@ public class CommandParse extends CommandClass {
 		CommandParse.channel = channel;
 
 		CommandParse.sender = sender;
-
-		CommandParse.login = login;
 
 		CommandParse.hostname = hostname;
 
@@ -87,33 +90,15 @@ public class CommandParse extends CommandClass {
 
 		if (FileFind.fileExist(cmd)) {
 
-			sendArrayResponce(args, command, channel, FileFind.ArrayFileContent(cmd, sender, channel));
+			sendArrayResponce(args, command, channel, FileFind.ArrayFileContent(cmd, sender, channel.getName()));
 
 			return;
 
 		}
 
 		BotStartup.botInstance.sendNotice(sender, "That is not a valid command");
-
-		/*
-		 * if (PropLoader.getAntiFlood()) if
-		 * (!FloodChecker.canBeServed(hostname)) {
-		 * 
-		 * if (!isUserOp(channel, sender)) {
-		 * 
-		 * BotStartup.botInstance.sendNotice(sender, "You can only send " +
-		 * FloodChecker.maxMessagesPerTime() + " messages every " +
-		 * FloodChecker.TimeInSec() + "seconds");
-		 * 
-		 * BotStartup.botInstance.kick(channel, sender, "You can only send " +
-		 * FloodChecker.maxMessagesPerTime() + " messages every " +
-		 * FloodChecker.TimeInSec() + " seconds");
-		 * 
-		 * }
-		 * 
-		 * }
-		 */
-
+		
+		
 	}
 
 }

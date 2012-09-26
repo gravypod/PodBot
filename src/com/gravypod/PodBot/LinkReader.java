@@ -17,21 +17,25 @@ import org.w3c.tidy.Tidy;
  */
 public class LinkReader {
 
-	public static String html;
-	public static String ytOut;
-
-	public static String webRead(String Url) {
+	public String html;
+	public String ytOut;
+	public URL linkURL;
+	URLConnection urlConnection;
+	BufferedReader in;
+	Tidy tidy = new Tidy();
+	Document doc;
+	
+	public String webRead(String Url) {
 
 		try {
 
-			URL linkURL = new URL(Url);
-			URLConnection urlConnection = linkURL.openConnection();
-			BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-			Tidy tidy = new Tidy();
+			linkURL = new URL(Url);
+			urlConnection = linkURL.openConnection();
+			in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 			tidy.setShowErrors(0);
 			tidy.setShowWarnings(false);
 			tidy.setQuiet(true);
-			Document doc = tidy.parseDOM(in, null);
+			doc = tidy.parseDOM(in, null);
 			String titleText = doc.getElementsByTagName("title").item(0).getFirstChild().getNodeValue();
 			html = titleText;
 			ytOut = null;
@@ -46,18 +50,15 @@ public class LinkReader {
 
 		} catch (Exception e) {
 		}
+		
+		linkURL = null;
+		urlConnection = null;
+		in = null;
+		html = null;
+		doc = null;
 
 		return ytOut;
 
 	}
-
-	public static String getHtml() {
-
-		return html;
-	}
-
-	public static void setHtml(String string) {
-
-		html = string;
-	}
+	
 }

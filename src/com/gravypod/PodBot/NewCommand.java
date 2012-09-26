@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import org.pircbotx.Channel;
+
 /**
  * 
  * Utilities for making new commands.
@@ -24,7 +26,7 @@ public class NewCommand {
 	 * @param sender
 	 * @param message
 	 */
-	public static void NewCommands(String channel, String sender, String fileName, String message) {
+	public static void NewCommands(Channel channel, String sender, String fileName, String message) {
 
 		try {
 			String file = fileName.trim().toLowerCase();
@@ -49,7 +51,7 @@ public class NewCommand {
 	 * @param sender
 	 * @param message
 	 */
-	public static void AltCommand(String channel, String sender, String[] args) {
+	public static void AltCommand(Channel channel, String sender, String[] args) {
 
 		try {
 			String file = args[1];

@@ -2,10 +2,13 @@ package com.gravypod.PodBot;
 
 import java.util.TimerTask;
 
+import org.pircbotx.Channel;
+
 public class TimedTask extends TimerTask {
 
 	BotStartup bot = BotStartup.botInstance;
-	String channel, sender, message;
+	Channel channel;
+	String sender, message;
 
 	/**
 	 * 
@@ -16,7 +19,7 @@ public class TimedTask extends TimerTask {
 	 * @param _message
 	 * 
 	 */
-	public TimedTask(String _channel, String _sender, String _message) {
+	public TimedTask(Channel _channel, String _sender, String _message) {
 
 		channel = _channel;
 		sender = _sender;

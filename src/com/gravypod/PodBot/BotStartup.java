@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import org.jibble.pircbot.PircBot;
-import org.jibble.pircbot.User;
+import org.pircbotx.Channel;
+import org.pircbotx.PircBotX;
+import org.pircbotx.User;
 
 /**
  * 
@@ -14,9 +15,8 @@ import org.jibble.pircbot.User;
  * @author gravypod
  * 
  */
-public class BotStartup extends PircBot {
+public class BotStartup extends PircBotX {
 
-	public static Hashtable<String, User[]> channelUserList;
 	protected List<String> channelList;
 	protected CommandParse commandParse;
 	public static BotStartup botInstance;
@@ -37,12 +37,12 @@ public class BotStartup extends PircBot {
 
 		channels = PropLoader.getChannel().split(",");
 
-		channelUserList = new Hashtable<String, User[]>();
-
 		commandParse = new CommandParse();
 
 		botInstance = this;
-
+		
+		this.getListenerManager().addListener(new Listeners(this));
+		
 		this.setName(PropLoader.getNick());
 
 		try {
@@ -70,40 +70,13 @@ public class BotStartup extends PircBot {
 
 	}
 
-	@Override
-	protected void onConnect() {
+	public void onMessage(Channel channel, String sender, String hostname, String message) {
+
+		commandParse.commandFind(channel, sender, hostname, message);
+
+		PodBot.logger.Log(sender, channel.getName(), message);
 
 	}
 
-	@Override
-	protected void onJoin(String channel, String sender, String login, String hostname) {
-
-		if (sender.equals(PropLoader.getNick()))
-			channelList.add(channel);
-
-	}
-
-	@Override
-	protected void onKick(String channel, String kickerNick, String kickerLogin, String kickerHostname, String recipientNick, String reason) {
-
-		if (channelList.contains(channel)) {
-
-			channelList.remove(channel);
-
-			for (int i = 0; i < 10; i++)
-				this.joinChannel(channel);
-
-		}
-
-	}
-
-	@Override
-	protected void onMessage(String channel, String sender, String login, String hostname, String message) {
-
-		commandParse.commandFind(channel, sender, login, hostname, message);
-
-		PodBot.logger.Log(sender, channel, message);
-
-	}
 
 }

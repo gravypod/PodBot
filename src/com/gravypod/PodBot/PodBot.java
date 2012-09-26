@@ -35,19 +35,23 @@ public class PodBot {
 	
 	/**	The main timer of this application */
 	public static final Timer timer = new Timer(true);
-
+	
+	public static Pattern md5 = Pattern.compile("^[a-f0-9]{32}$");
+	
+	public static LinkReader linkReader = new LinkReader();
+	
 	public static void main(String[] args) {
 
 		PropLoader.PropCheck();
 		PropLoader.PropLoad();
-
+		
 		logger = new Logger(PropLoader.getChannel());
 
 		new Thread() {
 
 			@Override
 			public void run() {
-
+				
 				File commandFile = new File("commands");
 
 				if (!commandFile.exists())
@@ -60,10 +64,14 @@ public class PodBot {
 				}
 
 				new BotStartup();
+				
 			}
 
+			
 		}.start();
-
+		
+		
+		
 	}
 
 	/**

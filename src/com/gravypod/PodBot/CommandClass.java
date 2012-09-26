@@ -2,7 +2,7 @@ package com.gravypod.PodBot;
 
 import java.util.regex.Matcher;
 
-import org.jibble.pircbot.User;
+import org.pircbotx.Channel;
 
 /**
  * This is my main command class. Any classes than deal with Commands /should
@@ -79,7 +79,7 @@ public abstract class CommandClass {
 	 *            - The message you want to send.
 	 * 
 	 */
-	public void sendResponce(String[] args, String commandName, String channel, String message) {
+	public void sendResponce(String[] args, String commandName, Channel channel, String message) {
 
 		String pointer = getPointer(args, commandName);
 
@@ -88,7 +88,7 @@ public abstract class CommandClass {
 				pointer = pointer.replaceAll("@", "");
 
 		if (notice) {
-
+			
 			BotStartup.botInstance.sendNotice(pointer, pointer + ": " + message);
 			BotStartup.botInstance.sendNotice(CommandParse.sender, pointer + ": " + message);
 
@@ -103,7 +103,7 @@ public abstract class CommandClass {
 
 	}
 
-	public void sendDirectResponce(String channel, String message) {
+	public void sendDirectResponce(Channel channel, String message) {
 
 		BotStartup.botInstance.sendMessage(channel, message);
 
@@ -123,7 +123,7 @@ public abstract class CommandClass {
 	 *            - String[] of messages that you want to send
 	 * 
 	 */
-	public void sendArrayResponce(String[] args, String commandName, String channel, String[] messages) {
+	public void sendArrayResponce(String[] args, String commandName, Channel channel, String[] messages) {
 
 		for (String message : messages) {
 			sendResponce(args, commandName, channel, message);
@@ -153,11 +153,11 @@ public abstract class CommandClass {
 	 * @return
 	 * 
 	 */
-	public boolean isUserOp(String channel, String username) {
-
-		for (User user : BotStartup.botInstance.getUsers(channel))
-			if (user.getNick().equalsIgnoreCase(username) && user.isOp())
-				return true;
+	public boolean isUserOp(Channel channel, String username) {
+		
+		
+		if (channel.hasVoice(BotStartup.botInstance.getUser(username)))
+			return true;
 
 		sendResponce(CommandParse.args, CommandParse.command, channel, "You do not have permission to use that command!");
 
@@ -174,15 +174,27 @@ public abstract class CommandClass {
 	 * @return
 	 * 
 	 */
-	public boolean isUserVoice(String channel, String username) {
+	public boolean isUserVoice(Channel channel, String username) {
 
-		for (User user : BotStartup.botInstance.getUsers(channel))
-			if (user.getNick().equalsIgnoreCase(username) && user.hasVoice())
-				return true;
+		if (channel.hasVoice(BotStartup.botInstance.getUser(username)))
+			return true;
 
 		sendResponce(CommandParse.args, CommandParse.command, channel, "You do not have permission to use that command!");
 
 		return false;
+	}
+	
+	public boolean isMD5(String s) {
+		
+		try {
+
+			Matcher matcher = PodBot.md5.matcher(s);
+			return matcher.matches();
+
+		} catch (RuntimeException e) {
+			return false;
+		}
+		
 	}
 	
 	public static String arrayToString(String[] a, String separator) {
