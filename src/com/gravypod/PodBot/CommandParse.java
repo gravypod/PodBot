@@ -1,6 +1,7 @@
 package com.gravypod.PodBot;
 
 import org.pircbotx.Channel;
+import org.pircbotx.User;
 
 /**
  * 
@@ -13,7 +14,8 @@ import org.pircbotx.Channel;
 public class CommandParse extends CommandClass {
 
 	public static Channel channel;
-	public static String sender, hostname, message, command;
+	public static User sender;
+	public static String hostname, message, command;
 
 	public static String[] args;
 
@@ -28,7 +30,7 @@ public class CommandParse extends CommandClass {
 	 * @param hostname
 	 * @param message 
 	 */
-	public void commandFind(Channel channel, String sender, String hostname, String message) {
+	public void commandFind(Channel channel, User sender, String hostname, String message) {
 
 		String command = null;
 
@@ -90,7 +92,7 @@ public class CommandParse extends CommandClass {
 
 		if (FileFind.fileExist(cmd)) {
 
-			sendArrayResponce(args, command, channel, FileFind.ArrayFileContent(cmd, sender, channel.getName()));
+			sendArrayResponce(args, command, channel, FileFind.ArrayFileContent(cmd, sender.getNick(), channel.getName()));
 
 			return;
 

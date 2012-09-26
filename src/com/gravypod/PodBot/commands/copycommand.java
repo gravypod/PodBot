@@ -9,7 +9,7 @@ public class copycommand extends CommandClass {
 	public copycommand() {
 
 		if (isUserOp(CommandParse.channel, CommandParse.sender))
-			NewCommand.AltCommand(CommandParse.channel, CommandParse.sender, CommandParse.args);
+			NewCommand.AltCommand(CommandParse.channel, CommandParse.sender.getNick(), CommandParse.args);
 
 	}
 

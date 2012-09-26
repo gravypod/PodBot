@@ -10,7 +10,7 @@ public class timer extends CommandClass {
 	
 	public timer() {
 		
-		TimedTask task = new TimedTask(CommandParse.channel, CommandParse.sender, arrayToString(CommandParse.args, " "));
+		TimedTask task = new TimedTask(CommandParse.channel, CommandParse.sender.getNick(), arrayToString(CommandParse.args, " "));
 		PodBot.timer.schedule(task, 180000L);
 		BotStartup.botInstance.sendMessage(CommandParse.channel, CommandParse.sender + ": you reminder has been set!");
 		

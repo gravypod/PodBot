@@ -11,7 +11,7 @@ public class newcommand extends CommandClass {
 		if (isUserOp(CommandParse.channel, CommandParse.sender)) {
 			String fileName = CommandParse.args[1].trim();
 			String message = CommandParse.message.replace(fileName, "").replace("." + CommandParse.command, "").trim();
-			NewCommand.NewCommands(CommandParse.channel, CommandParse.sender, fileName, message);
+			NewCommand.NewCommands(CommandParse.channel, CommandParse.sender.getNick(), fileName, message);
 		}
 
 	}

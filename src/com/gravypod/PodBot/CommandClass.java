@@ -3,6 +3,7 @@ package com.gravypod.PodBot;
 import java.util.regex.Matcher;
 
 import org.pircbotx.Channel;
+import org.pircbotx.User;
 
 /**
  * This is my main command class. Any classes than deal with Commands /should
@@ -13,10 +14,11 @@ import org.pircbotx.Channel;
  * 
  */
 public abstract class CommandClass {
-
+	
 	boolean notice = false;
+	
 	boolean ping = false;
-
+	
 	/**
 	 * 
 	 * Gets a pointer (A user name or command name)
@@ -29,42 +31,42 @@ public abstract class CommandClass {
 	 * 
 	 */
 	public String getPointer(String[] args, String commandName) {
-
+	
 		String pointedMessage = commandName;
-
+		
 		if (args.length > 0)
 			for (String argument : args) {
-
+				
 				pointedMessage = argument;
-
+				
 				if (pointedMessage.endsWith("@@")) {
-
+					
 					notice = true;
 					continue;
-
+					
 				} else if (pointedMessage.endsWith("@")) {
-
+					
 					ping = true;
 					continue;
-
+					
 				}
-
+				
 				pointedMessage = commandName;
-
+				
 			}
-
+		
 		if (ping) {
 			pointedMessage.replace("@", "");
 		}
-
+		
 		if (notice) {
 			pointedMessage.replace("@@", "");
 		}
-
+		
 		return pointedMessage;
-
+		
 	}
-
+	
 	/**
 	 * 
 	 * Send a message to a pointer.
@@ -80,35 +82,35 @@ public abstract class CommandClass {
 	 * 
 	 */
 	public void sendResponce(String[] args, String commandName, Channel channel, String message) {
-
+	
 		String pointer = getPointer(args, commandName);
-
+		
 		if (!(pointer == null))
 			if (!pointer.isEmpty() && pointer.contains("@"))
 				pointer = pointer.replaceAll("@", "");
-
+		
 		if (notice) {
 			
 			BotStartup.botInstance.sendNotice(pointer, pointer + ": " + message);
 			BotStartup.botInstance.sendNotice(CommandParse.sender, pointer + ": " + message);
-
+			
 		} else {
-
+			
 			BotStartup.botInstance.sendMessage(channel, pointer + ": " + message);
-
+			
 		}
-
+		
 		notice = false;
 		ping = false;
-
+		
 	}
-
+	
 	public void sendDirectResponce(Channel channel, String message) {
-
+	
 		BotStartup.botInstance.sendMessage(channel, message);
-
+		
 	}
-
+	
 	/**
 	 * 
 	 * Send an array of messages to a pointer.
@@ -124,26 +126,26 @@ public abstract class CommandClass {
 	 * 
 	 */
 	public void sendArrayResponce(String[] args, String commandName, Channel channel, String[] messages) {
-
+	
 		for (String message : messages) {
 			sendResponce(args, commandName, channel, message);
 		}
-
+		
 	}
-
+	
 	public boolean isURL(String s) {
-
+	
 		try {
-
+			
 			Matcher matcher = PodBot.urlPattern.matcher(s);
 			return matcher.matches();
-
+			
 		} catch (RuntimeException e) {
 			return false;
 		}
-
+		
 	}
-
+	
 	/**
 	 * 
 	 * Checks to see if a user is opped.
@@ -153,18 +155,17 @@ public abstract class CommandClass {
 	 * @return
 	 * 
 	 */
-	public boolean isUserOp(Channel channel, String username) {
-		
-		
-		if (channel.hasVoice(BotStartup.botInstance.getUser(username)))
+	public boolean isUserOp(Channel channel, User user) {
+	
+		if (channel.isOp(user) || channel.isOwner(user))
 			return true;
-
+		
 		sendResponce(CommandParse.args, CommandParse.command, channel, "You do not have permission to use that command!");
-
+		
 		return false;
-
+		
 	}
-
+	
 	/**
 	 * 
 	 * Checks to see if a user is voiced.
@@ -174,23 +175,23 @@ public abstract class CommandClass {
 	 * @return
 	 * 
 	 */
-	public boolean isUserVoice(Channel channel, String username) {
-
-		if (channel.hasVoice(BotStartup.botInstance.getUser(username)))
+	public boolean isUserVoice(Channel channel, User user) {
+	
+		if (channel.hasVoice(user))
 			return true;
-
+		
 		sendResponce(CommandParse.args, CommandParse.command, channel, "You do not have permission to use that command!");
-
+		
 		return false;
 	}
 	
 	public boolean isMD5(String s) {
-		
+	
 		try {
-
+			
 			Matcher matcher = PodBot.md5.matcher(s);
 			return matcher.matches();
-
+			
 		} catch (RuntimeException e) {
 			return false;
 		}
@@ -198,15 +199,16 @@ public abstract class CommandClass {
 	}
 	
 	public static String arrayToString(String[] a, String separator) {
-	    StringBuffer result = new StringBuffer();
-	    if (a.length > 0) {
-	        result.append(a[0]);
-	        for (int i=1; i<a.length; i++) {
-	            result.append(separator);
-	            result.append(a[i]);
-	        }
-	    }
-	    return result.toString();
+	
+		StringBuffer result = new StringBuffer();
+		if (a.length > 0) {
+			result.append(a[0]);
+			for (int i = 1; i < a.length; i++) {
+				result.append(separator);
+				result.append(a[i]);
+			}
+		}
+		return result.toString();
 	}
-
+	
 }

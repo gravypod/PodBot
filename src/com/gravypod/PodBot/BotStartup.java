@@ -1,12 +1,9 @@
 package com.gravypod.PodBot;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
-import org.pircbotx.Channel;
 import org.pircbotx.PircBotX;
-import org.pircbotx.User;
 
 /**
  * 
@@ -41,7 +38,7 @@ public class BotStartup extends PircBotX {
 
 		botInstance = this;
 		
-		this.getListenerManager().addListener(new Listeners(this));
+		this.getListenerManager().addListener(new Listeners(this, commandParse));
 		
 		this.setName(PropLoader.getNick());
 
@@ -69,14 +66,5 @@ public class BotStartup extends PircBotX {
 		}
 
 	}
-
-	public void onMessage(Channel channel, String sender, String hostname, String message) {
-
-		commandParse.commandFind(channel, sender, hostname, message);
-
-		PodBot.logger.Log(sender, channel.getName(), message);
-
-	}
-
 
 }
