@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import com.gravypod.PodBot.config.PropLoader;
+import com.gravypod.PodBot.PodBot;
 
 /**
  * Copyright (C) 2011-2012 Martin Foucek
@@ -17,8 +17,8 @@ public class FloodChecker {
 	private static final long Time_In_Sec;
 	private static final long Max_Messages_Per_Time;
 	static HashMap<String, ArrayList<Long>> records;
-	public static int timeToKick = Integer.parseInt(PropLoader.getTimeToKick());
-	public static int maxMessagesPerTime = Integer.parseInt(PropLoader.getMessagesToKick());
+	public static int timeToKick = PodBot.TIME_TO_KICK;
+	public static int maxMessagesPerTime = PodBot.MESSAGES_TO_KICK;
 
 	static {
 		Time_In_Sec = timeToKick; // in seconds
