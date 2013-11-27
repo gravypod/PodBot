@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.Scanner;
 
 /**
  * 
@@ -73,30 +72,4 @@ public class FileReader {
 
 	}
 
-	@Deprecated
-	public static String fileReaderTest(File file) {
-
-		try {
-			Scanner scan = new Scanner(file);
-			scan.useDelimiter("\\Z");
-			String content = scan.next();
-			return content;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-
-	}
-
-	@Deprecated
-	public static String motd() {
-
-		File motd = new File("motd.txt");
-		if (motd.canRead() || motd.exists() || !(motd.getTotalSpace() < 0)) {
-			return fileReaderTest(motd);
-		} else {
-			return "No news for today";
-		}
-
-	}
 }
