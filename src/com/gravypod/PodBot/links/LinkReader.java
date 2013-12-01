@@ -44,6 +44,7 @@ public class LinkReader {
 			in.close();
 
 		} catch (Exception e) {
+			return "Error connecting";
 		}
 
 		return ytOut;
